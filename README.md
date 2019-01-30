@@ -8,3 +8,4 @@
 - json 방식으로 가져온다.
 - 네이버 오픈api를 이용하지 않고 크롬 개발자 도구의 네트워크를 보고 api 따와서 json방식으로 가져옴
 - https://apis.naver.com/commentBox/
+- 댓글 크롤링 결과 엑셀파일로 저장한다.
