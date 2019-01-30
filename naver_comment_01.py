@@ -7,7 +7,7 @@ import pandas as pd
 댓글 크롤링(JSON 활용)
 네트워크 F5
 '''
-# 네이버 뉴스 url을 입력합니다.
+# 네이버 뉴스 url
 url="https://news.naver.com/main/ranking/read.nhn?mid=etc&sid1=111&rankingType=popular_day&oid=018&aid=0004300484&date=20190128&type=1&rankingSeq=5&rankingSectionId=101"    #이부분만 원하는 기사로 수정!
 RESULT_PATH = 'C:/Users/User/Desktop/python study/beautifulSoup_ws/crawling_result/'
     
@@ -17,7 +17,7 @@ aid=url.split("aid=")[1]
 c_List=[] 
 d_List=[]
 
-# 여러 리스트들을 하나의 리스트로 만들어줌 
+# 여러 리스트들을 하나 씩 뽑아서 하나의 리스트로 묶음
 def contents_flat(c_List,d_List): 
     flatList = [] 
     d_flatList=[]
@@ -63,18 +63,16 @@ def main():
     while True : 
         #json api url
         c_url="https://apis.naver.com/commentBox/cbox/web_neo_list_jsonp.json?ticket=news&templateId=default_society&pool=cbox5&_callback=jQuery1707138182064460843_1523512042464&lang=ko&country=&objectId=news"+oid+"%2C"+aid+"&categoryId=&pageSize=20&indexSize=10&groupId=&listType=OBJECT&pageType=more&page="+str(page)+"&refresh=false&sort=FAVORITE"  
-        # 파싱하는 단계입니다.
+        # 파싱
         r=requests.get(c_url,headers=header) 
         cont=BeautifulSoup(r.content,"html.parser")     
         total_comm=str(cont).split('comment":')[1].split(",")[0] 
         
         match=re.findall('"contents":"([^\*]*)","userIdNo"', str(cont))   #소괄호 안에 있는것을 크롤링해온다.
         date=re.findall('"modTime":"([^\*]*)","modTimeGmt"', str(cont)) 
-        
     
         #print(type(match))
-             
-        # 댓글을 리스트에 중첩합니다.
+            
         c_List.append(match)
         d_List.append(date)
         
